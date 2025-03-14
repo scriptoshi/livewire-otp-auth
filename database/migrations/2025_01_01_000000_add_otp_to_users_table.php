@@ -28,15 +28,11 @@ return new class extends Migration
                     ->comment('Expiration time for OTP');
             }
 
-            // The following changes are optional and might depend on your app's requirements
-            // so we'll add a check to avoid breaking existing apps
-            if (!Schema::hasColumn('users', 'name')) {
+            // Ensure name a password are nullable
+            if (Schema::hasColumn('users', 'name'))
                 $table->string('name')->nullable()->change();
-            }
-
-            if (!Schema::hasColumn('users', 'password')) {
+            if (Schema::hasColumn('users', 'password'))
                 $table->string('password')->nullable()->change();
-            }
         });
     }
 
