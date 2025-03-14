@@ -16,42 +16,51 @@
             <form wire:submit="sendOtp" class="space-y-4">
                 @if($type === 'register')
                     <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Your Name</label>
-                        <div class="mt-1 relative rounded-md shadow-sm">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <flux:input
+                            wire:model="name"
+                            label="Your Name"
+                            type="text"
+                            required
+                            autofocus
+                            placeholder="Enter your full name"
+                        >
+                            <template #leadingIcon>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
-                            </div>
-                            <input wire:model="name" type="text" id="name" required autofocus
-                                   class="pl-10 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                                   placeholder="Enter your full name">
-                        </div>
+                            </template>
+                        </flux:input>
                         @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
                 @endif
                 
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
-                    <div class="mt-1 relative rounded-md shadow-sm">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <flux:input
+                        wire:model="email"
+                        label="Email Address"
+                        type="email"
+                        required
+                        autofocus
+                        placeholder="Enter your email"
+                    >
+                        <template #leadingIcon>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                 <polyline points="22,6 12,13 2,6"></polyline>
                             </svg>
-                        </div>
-                        <input wire:model="email" type="email" id="email" required autofocus
-                               class="pl-10 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                               placeholder="Enter your email">
-                    </div>
+                        </template>
+                    </flux:input>
                     @error('email') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                 </div>
                 
                 <div class="flex justify-end">
-                    <button type="submit"
-                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            wire:loading.attr="disabled">
+                    <flux:button
+                        type="submit"
+                        variant="primary"
+                        class="w-full"
+                        :disabled="$loading"
+                    >
                         <span wire:loading.remove wire:target="sendOtp">Continue</span>
                         <span wire:loading wire:target="sendOtp">
                             <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -60,7 +69,7 @@
                             </svg>
                             Processing...
                         </span>
-                    </button>
+                    </flux:button>
                 </div>
             </form>
             
@@ -164,10 +173,11 @@
                 </div>
                 
                 <div>
-                    <button
+                    <flux:button
                         type="submit"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        :disabled="$wire.loading || (strlen($otp) !== 6)"
+                        variant="primary"
+                        class="w-full"
+                        :disabled="$loading || strlen($otp) !== 6"
                         wire:loading.attr="disabled"
                     >
                         <span wire:loading.remove wire:target="verifyOtp">Verify</span>
@@ -178,7 +188,7 @@
                             </svg>
                             Verifying...
                         </span>
-                    </button>
+                    </flux:button>
                 </div>
                 
                 <p class="text-xs text-center text-gray-600 dark:text-gray-400">

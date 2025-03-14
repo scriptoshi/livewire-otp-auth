@@ -4,19 +4,20 @@ A simple and easy-to-use OTP (One-Time Password) Email authentication package fo
 
 ## Features
 
--   OTP-based authentication for your Laravel application
--   Simple email-based verification
--   Support for login, registration, and email validation flows
--   Rate limiting for OTP requests
--   Customizable expiration times
--   Responsive UI with live input validation
--   Easy integration with existing Laravel applications
+- OTP-based authentication for your Laravel application
+- Simple email-based verification
+- Support for login, registration, and email validation flows
+- Rate limiting for OTP requests
+- Customizable expiration times
+- Responsive UI with live input validation using Flux components
+- Easy integration with existing Laravel applications
 
 ## Requirements
 
--   PHP 8.2+
--   Laravel 12.x
--   Livewire 3.x
+- PHP 8.2+
+- Laravel 12.x
+- Livewire 3.x
+- Flux 2.x
 
 ## Installation
 
@@ -25,6 +26,8 @@ You can install the package via composer:
 ```bash
 composer require scriptoshi/livewire-otp-auth
 ```
+
+This will automatically install Livewire and Flux if they're not already in your project.
 
 After installing the package, you need to run the migrations:
 
@@ -52,7 +55,7 @@ This will create a `livewire-otp-auth.php` file in your `config` directory. You 
 
 ## Usage
 
-### Add the trait to your User model
+### 1. Add the trait to your User model
 
 First, add the `HasOtpAuth` trait to your User model:
 
@@ -67,7 +70,11 @@ class User extends Authenticatable
 }
 ```
 
-### Add the component to your views
+### 2. Make sure Flux is properly set up
+
+If you haven't already set up Flux in your project, follow the [official Flux documentation](https://github.com/livewire/flux) to make sure it's properly configured.
+
+### 3. Add the component to your views
 
 You can now add the OTP authentication component to your views:
 
@@ -87,7 +94,7 @@ Available types:
 -   `register`: For new users (requires a name field)
 -   `validate`: For validating emails of logged-in users
 
-### Customizing the UI
+### 4. Customizing the UI
 
 If you want to customize the UI, you can publish the views:
 
@@ -96,6 +103,34 @@ php artisan vendor:publish --tag=livewire-otp-auth
 ```
 
 Then you can edit the views in `resources/views/vendor/livewire-otp-auth`.
+
+### 5. Configure Tailwind CSS
+
+To ensure that Tailwind CSS properly processes the component styles, add this package to your content sources in your CSS file (typically `resources/css/app.css`):
+
+```css
+/* Add this line with your other @source directives */
+@source '../../vendor/scriptoshi/livewire-otp-auth/resources/views/**/*.blade.php';
+```
+
+For example, your CSS file might look similar to this:
+
+```css
+@import "tailwindcss";
+@source "../views";
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/scriptoshi/livewire-otp-auth/resources/views/**/*.blade.php';
+/* Rest of your CSS file */
+```
+
+### 6. Flux Components
+
+This package uses Flux components to provide a consistent and beautiful UI. The components include:
+
+- `flux:input` - Used for email and name inputs
+- `flux:button` - Used for action buttons
+
+These components automatically inherit your application's theme and styling, providing a seamless integration with your Laravel application.
 
 ## Routes
 
