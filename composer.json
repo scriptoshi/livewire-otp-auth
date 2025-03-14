@@ -1,0 +1,34 @@
+{
+    "name": "scriptoshi/livewire-otp-auth",
+    "description": "OTP authentication for Laravel with Livewire",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Steve",
+            "email": "steve@scriptoshi.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^12.0",
+        "illuminate/database": "^12.0",
+        "illuminate/notifications": "^12.0",
+        "livewire/livewire": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Scriptoshi\\LivewireOtpAuth\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Scriptoshi\\LivewireOtpAuth\\LivewireOtpAuthServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "version": "1.0.0"
+}
